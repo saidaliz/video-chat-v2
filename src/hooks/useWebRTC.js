@@ -1,4 +1,4 @@
-import {useEffect, useRef, useCallback} from 'react';
+import {useEffect, useRef, useCallback,useState} from 'react';
 import freeice from 'freeice';
 import useStateWithCallback from './useStateWithCallback';
 import socket from '../socket';
@@ -9,7 +9,52 @@ export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 
 export default function useWebRTC(roomID) {
   const [clients, updateClients] = useStateWithCallback([]);
+  const [isCameraOn, setIsCameraOn] = useState(true);
+  const [isAudioOn, setIsAudioOn] = useState(true);
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
 
+const toggleScreenSharing = async () => {
+  if (localMediaStream.current) {
+    localMediaStream.current.getTracks().forEach(track => track.stop());
+  }
+
+  if (!isScreenSharing) {
+    localMediaStream.current = await navigator.mediaDevices.getDisplayMedia({
+      video: true,
+      audio: true,
+    });
+  } else {
+    localMediaStream.current = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true,
+    });
+  }
+
+  localMediaStream.current.getTracks().forEach(track => {
+    peerConnections.current.forEach(peerConnection => {
+      peerConnection.addTrack(track, localMediaStream.current);
+    });
+  });
+
+  setIsScreenSharing(prevState => !prevState);
+};
+  const toggleCamera = () => {
+    if (localMediaStream.current) {
+      localMediaStream.current.getVideoTracks().forEach(track => {
+        track.enabled = !track.enabled;
+      });
+    }
+    setIsCameraOn(prevState => !prevState);
+  };
+  
+  const toggleAudio = () => {
+    if (localMediaStream.current) {
+      localMediaStream.current.getAudioTracks().forEach(track => {
+        track.enabled = !track.enabled;
+      });
+    }
+    setIsAudioOn(prevState => !prevState);
+  };
   const addNewClient = useCallback((newClient, cb) => {
     updateClients(list => {
       if (!list.includes(newClient)) {
@@ -154,16 +199,13 @@ export default function useWebRTC(roomID) {
   useEffect(() => {
     async function startCapture() {
       localMediaStream.current = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: {
-          width: 1280,
-          height: 720,
-        }
+        audio: isAudioOn,
+        video: isCameraOn ? { width: 1280, height: 720 } : false,
       });
-
+    
       addNewClient(LOCAL_VIDEO, () => {
         const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
-
+    
         if (localVideoElement) {
           localVideoElement.volume = 0;
           localVideoElement.srcObject = localMediaStream.current;
@@ -188,6 +230,12 @@ export default function useWebRTC(roomID) {
 
   return {
     clients,
-    provideMediaRef
+    provideMediaRef,
+    isCameraOn,
+    isAudioOn,
+    toggleCamera,
+    toggleAudio,
+    isScreenSharing,
+    toggleScreenSharing,
   };
 }
