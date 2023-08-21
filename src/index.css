@@ -3,3 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+.Main_room{
+  width: 100%;
+  background-color: white;
+  display: flex;
+
+  flex-direction: row;
+}
+.room{
+  width: 20%;
+  height: 20%;
+  margin-left: 2%;
+  margin-right: 2%;
+}

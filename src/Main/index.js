@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
-import socket from '../../socket';
-import ACTIONS from '../../socket/actions';
+import socket from '../socket';
+import ACTIONS from '../socket/actions';
 import {useHistory} from 'react-router';
 import {v4} from 'uuid';
 
@@ -18,14 +18,14 @@ export default function Main() {
   }, []);
 
   return (
-    <div ref={rootNode}>
+    <div style={{width:"100%",backgroundColor:"yellow"}} ref={rootNode}>
       <h1>Available Rooms</h1>
 
       <ul>
         {rooms.map(roomID => (
           <li key={roomID}>
             {roomID}
-            <button onClick={() => {
+            <button  onClick={() => {
               history.push(`/room/${roomID}`);
             }}>JOIN ROOM</button>
           </li>
