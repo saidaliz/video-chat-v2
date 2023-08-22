@@ -19,7 +19,7 @@ function shareRoomsInfo() {
     rooms: getClientRooms()
   })
 }
-
+const messageHistory = {};
 io.on('connection', socket => {
   shareRoomsInfo();
 
@@ -47,6 +47,11 @@ io.on('connection', socket => {
 
     socket.join(roomID);
     shareRoomsInfo();
+    if (messageHistory[roomID]) {
+      socket.emit(ACTIONS.RECEIVE_MESSAGE_HISTORY, messageHistory[roomID]);
+    } else {
+      messageHistory[roomID] = [];
+    }
   });
 
   function leaveRoom() {
@@ -92,7 +97,19 @@ io.on('connection', socket => {
       iceCandidate,
     });
   });
+  socket.on(ACTIONS.SEND_MESSAGE, ({ roomID, message }) => {
+    // Save message to history
+    if (!messageHistory[roomID]) {
+      messageHistory[roomID] = [];
+    }
+    messageHistory[roomID].push({ senderID: socket.id, message });
 
+    io.to(roomID).emit(ACTIONS.RECEIVE_MESSAGE, {
+      senderID: socket.id,
+      message,
+    });
+  });
+  
 });
 
 const publicPath = path.join(__dirname, 'build');

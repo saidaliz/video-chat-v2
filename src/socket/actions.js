@@ -7,7 +7,10 @@ const ACTIONS = {
   RELAY_SDP: 'relay-sdp',
   RELAY_ICE: 'relay-ice',
   ICE_CANDIDATE: 'ice-candidate',
-  SESSION_DESCRIPTION: 'session-description'
+  SESSION_DESCRIPTION: 'session-description',
+  SEND_MESSAGE: 'send-message',
+  RECEIVE_MESSAGE: 'receive-message',
+  RECEIVE_MESSAGE_HISTORY: 'receive-message-history'
 };
 
 module.exports = ACTIONS;
