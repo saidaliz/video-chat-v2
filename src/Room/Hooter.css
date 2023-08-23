@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.Hooter_main {
+  width: 100%;
+  height: 80px;
+  flex-shrink: 0;
+  background: var(--toolbar-background, #1b1b1b);
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+
+}
+.Hooter_cotroler {
+  width: 200px;
+  height: 48px;
+  height: 100%;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: row;
+}
+.Hooter_audio_control {
+  width: 50%;
+  height: 100%;
+  background: var(--toolbar-background, #1B1B1B);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Hooter_video_control {
+  width: 50%;
+  height: 100%;
+  background: var(--toolbar-background, #1B1B1B);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn_leave_div {
+  height: 100%;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn_leave {
+  display: flex;
+  width: 76px;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: #ab342e;
+  border: 0;
+}
+.btn_leave_p {
+  color: var(--basics-white, #fff);
+  text-align: center;
+  /* font-family:" SF Pro Text" ; */
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+.Hooter_center_controler {
+  width: 300px;
+  height: 100%;
+  background: var(--toolbar-background, #1b1b1b);
+  display: flex;
+  flex-direction: row;
+}
+.Hooter_video_share_controler {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Hooter_chat_controler {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Hooter_users_controler {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.control_div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.control_div p{
+  color:#ACACAC;
+  text-align: center;
+  /* font-family:" SF Pro Text" ; */
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}

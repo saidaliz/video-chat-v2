@@ -3,43 +3,34 @@
   padding: 0;
   box-sizing: border-box;
 }
-.Main_room {
+.Main{
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
+  flex-direction: column;
 }
 
 .room {
-  width: 300px;
-  height: 300px;
-  margin: 10px;
-  position: relative;
-}
+  width: 200px;
+  height: 240px;
 
-.room p {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 10px;
-  color: white;
+  /* margin: 10px; */
+  /* position: relative; */
 }
+.video{
+  width: 180px;
+  height: 150px;
+    transform: scaleX(-1);
 
-button {
-  background-color: #2D8CFF;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  
 }
-
-button:hover {
-  background-color: #0C64C1;
-}
-.fd{
-  width: 500px;
-  height: 500px;
+.rooms{
+  width: 100%;
+  height: 650px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: bisque;
 }
